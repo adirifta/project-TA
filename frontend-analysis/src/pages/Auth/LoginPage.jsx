@@ -19,7 +19,7 @@ const LoginPage = () => {
     try {
       const response = await login(email, password);
       authLogin(response.user, response.token);
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       setError(err.error || 'Login failed');
     } finally {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchDashboardData } from '../api/dashboardApi';
 
 export const useDashboardData = () => {
@@ -9,11 +9,10 @@ export const useDashboardData = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        setLoading(true);
-        const response = await fetchDashboardData();
-        setData(response);
+        const dashboardData = await fetchDashboardData();
+        setData(dashboardData);
       } catch (err) {
-        setError(err.message || 'Failed to fetch dashboard data');
+        setError(err.message || 'Failed to load dashboard data');
       } finally {
         setLoading(false);
       }

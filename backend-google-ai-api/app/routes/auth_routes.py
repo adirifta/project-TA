@@ -46,27 +46,21 @@ def register():
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
-    try:
-        data = request.get_json()
-        email = data.get('email')
-        password = data.get('password')
-        
-        if not email or not password:
-            return jsonify({"error": "Email and password are required"}), 400
-        
-        user = auth_service.authenticate_user(email, password)
-        if not user:
-            return jsonify({"error": "Invalid credentials"}), 401
-        
-        token = auth_service.create_access_token(user)
-        
-        return jsonify({
-            "message": "Login successful",
-            "access_token": token,
-            "user": {
-                    "email": user.email,
-                    "name": user.name
-                }
-        }), 200
-    except Exception as e:
-        return jsonify({"error": "Login failed"}), 500
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    
+    if not email or not password:
+        return jsonify({"error": "Email and password are required"}), 400
+    
+    user = auth_service.authenticate_user(email, password)
+    if not user:
+        return jsonify({"error": "Invalid credentials"}), 401
+    
+    token = auth_service.create_access_token(user)
+    
+    return jsonify({
+        "message": "Login successful",
+        "access_token": token,
+        "user": user.dict()
+    }), 200

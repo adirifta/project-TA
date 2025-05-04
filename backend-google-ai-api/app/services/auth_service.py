@@ -6,7 +6,6 @@ from app.models.ai_model import UserCreate, User
 from app.services.bigquery_service import BigQueryService
 from flask_jwt_extended import create_access_token # type: ignore
 from datetime import timedelta
-from app.models.user_model import User
 import logging
 
 class AuthService:
@@ -55,9 +54,3 @@ class AuthService:
             },
             expires_delta=timedelta(days=1)
         )
-    
-    @staticmethod
-    def get_current_user():
-        from flask_jwt_extended import get_jwt_identity # type: ignore
-        current_user_email = get_jwt_identity()
-        return db.session.query(User).filter_by(email=current_user_email).first() # type: ignore

@@ -1,18 +1,11 @@
 import React from 'react';
-import { useDashboardData } from '../hooks/useDashboardData';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import MainContent from '../components/layout/MainContent';
-import Loader from '../components/ui/Loader';
-import ErrorMessage from '../components/ui/ErrorMessage';
 import { useAuth } from '../contexts/AuthContext';
 
 const DashboardPage = () => {
-  const { data, loading, error } = useDashboardData();
   const { user, logout } = useAuth();
-
-  if (loading) return <Loader fullScreen />;
-  if (error) return <ErrorMessage message={error} />;
 
   return (
     <div className="flex h-screen bg-gray-100">
